@@ -1,15 +1,21 @@
 package com.gusgd.ecommerce.repositories;
 
-import com.gusgd.ecommerce.entities.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.gusgd.ecommerce.entities.User;
+import com.gusgd.ecommerce.projections.UserDetailsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import java.util.List;
 
-public interface UserRepository extends JpaRepository<Product, Long> {
-    @Query("SELECT obj " +
-            " FROM Product obj " +
-            "WHERE UPPER(obj.name) LIKE UPPER(CONCAT('%',:name,'%')) ")
-    Page<Product> searchByName(String name, Pageable pageable);
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    @Query(nativeQuery = true, value = """
+			SELECT tb_user.email AS username, tb_user.password, tb_role.id AS roleId, tb_role.authority
+			FROM tb_user
+			INNER JOIN tb_user_role ON tb_user.id = tb_user_role.user_id
+			INNER JOIN tb_role ON tb_role.id = tb_user_role.role_id
+			WHERE tb_user.email = :email
+		""")
+    List<UserDetailsProjection> searchUserAndRolesByEmail(String email);
+    User findByEmail(String email);
 }
 
