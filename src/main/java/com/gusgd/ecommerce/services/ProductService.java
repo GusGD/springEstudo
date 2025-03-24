@@ -1,6 +1,8 @@
 package com.gusgd.ecommerce.services;
 
+import com.gusgd.ecommerce.dto.CategoryDTO;
 import com.gusgd.ecommerce.dto.ProductDTO;
+import com.gusgd.ecommerce.entities.Category;
 import com.gusgd.ecommerce.entities.Product;
 import com.gusgd.ecommerce.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +68,11 @@ public class ProductService {
     entity.setDescription(dto.getDescription());
     entity.setPrice(dto.getPrice());
     entity.setImgUrl(dto.getImgUrl());
+    entity.getCategories().clear();
+    for (CategoryDTO catDTO : dto.getCategories()){
+      Category cat = new Category();
+      cat.setId(catDTO.getId());
+      entity.getCategories().add(cat);
+    }
   }
 }
