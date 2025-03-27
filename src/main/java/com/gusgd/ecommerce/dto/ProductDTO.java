@@ -3,10 +3,7 @@ package com.gusgd.ecommerce.dto;
 import com.gusgd.ecommerce.entities.Category;
 import com.gusgd.ecommerce.entities.Product;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +16,7 @@ public class ProductDTO {
   @NotBlank(message = "Campo é de preenchimento obrigatório.")
   @Size(min = 10, message = "Campo precisa de 10 ou mais caracteres.")
   private final String description;
+  @NotNull(message = "Campo requerido")
   @Positive(message = "O Preço deve ser positivo")
   private final Double price;
   private final String imgUrl;
