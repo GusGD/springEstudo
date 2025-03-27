@@ -2,7 +2,6 @@ package com.gusgd.ecommerce.dto;
 
 import com.gusgd.ecommerce.entities.Category;
 import com.gusgd.ecommerce.entities.Product;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;

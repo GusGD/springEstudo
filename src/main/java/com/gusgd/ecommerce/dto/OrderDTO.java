@@ -1,7 +1,6 @@
 package com.gusgd.ecommerce.dto;
 
 import com.gusgd.ecommerce.entities.Order;
-import com.gusgd.ecommerce.entities.OrderItem;
 import com.gusgd.ecommerce.entities.OrderStatus;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -11,13 +10,13 @@ import java.util.List;
 
 public class OrderDTO {
 
-    private Long id;
-    private Instant moment;
-    private OrderStatus status;
-    private ClientDTO client;
-    private PaymentDTO payment;
+    private final Long id;
+    private final Instant moment;
+    private final OrderStatus status;
+    private final ClientDTO client;
+    private final PaymentDTO payment;
     @NotEmpty(message = "Deve ter pelo menos um item")
-    private List<OrderItemDTO> items = new ArrayList<>();
+    private final List<OrderItemDTO> items = new ArrayList<>();
 
     public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
         this.id = id;

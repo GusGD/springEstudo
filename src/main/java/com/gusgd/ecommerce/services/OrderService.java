@@ -2,7 +2,6 @@ package com.gusgd.ecommerce.services;
 
 import com.gusgd.ecommerce.dto.OrderDTO;
 import com.gusgd.ecommerce.dto.OrderItemDTO;
-import com.gusgd.ecommerce.dto.ProductDTO;
 import com.gusgd.ecommerce.entities.*;
 import com.gusgd.ecommerce.repositories.OrderItemRepository;
 import com.gusgd.ecommerce.repositories.OrderRepository;
