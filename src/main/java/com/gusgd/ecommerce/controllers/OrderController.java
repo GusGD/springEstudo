@@ -2,6 +2,7 @@ package com.gusgd.ecommerce.controllers;
 
 import com.gusgd.ecommerce.dto.OrderDTO;
 import com.gusgd.ecommerce.dto.ProductDTO;
+import com.gusgd.ecommerce.entities.Order;
 import com.gusgd.ecommerce.services.OrderService;
 import com.gusgd.ecommerce.services.ProductService;
 import jakarta.validation.Valid;
@@ -22,10 +23,19 @@ public class OrderController {
   @Autowired
   private OrderService service;
 
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_CLIENT')")
   @GetMapping(value ="/{id}")
   public ResponseEntity <OrderDTO> findById(@PathVariable Long id) {
     OrderDTO dto = service.findById(id);
     return ResponseEntity.ok(dto);
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_CLIENT')")
+  @PostMapping ()
+  public ResponseEntity <OrderDTO> insert(@Valid @RequestBody OrderDTO dto) {
+    dto = service.insert(dto);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+            .buildAndExpand(dto.getId()).toUri();
+    return ResponseEntity.created(uri).body(dto);
   }
 }
